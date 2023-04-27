@@ -53,6 +53,9 @@ public:
 };
 
 int main() {
+    /*
+    *   Se lee el archivo test.txt, donde los nodos son representados con numeros empezando con el A = 0 hasta el H = 7
+    */
     std::ifstream myfile("test.txt"); 
     
     if (myfile.is_open()) {

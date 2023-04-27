@@ -38,11 +38,11 @@ public:
                 }
                 std::reverse(path.begin(), path.end());
                 
-                std::cout << "Found node: " << p.second << " with cost: " << p.first << "\n";
                 for (int node : path) {
                     std::cout << node << " ";
                 }
-                std::cout << std::endl;
+                std::cout << "\n";
+                std::cout << "Costo: " << p.first << "\n";
                 return;
             }
             if (!visited[p.second]) {

@@ -45,7 +45,6 @@ public:
         }
     }
     void printStats(int cost) {
-        std::cout << "Encontrado! \nCamino: ";
         for (int i = 0; i < path.size(); i++) {
             std::cout << path[i];
             if (i < path.size() - 1) std::cout << " -> ";
