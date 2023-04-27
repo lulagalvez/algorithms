@@ -2,6 +2,7 @@
 #include <vector>
 #include <utility>
 #include <queue>
+#include <fstream>
 #include <algorithm>
 
 class Graph {
@@ -57,9 +58,6 @@ public:
         }
         return;
     }
-    
-
-
     void printSelf() {
         for (int i = 0; i < adj.size(); i++) {
             for (int j = 0; j < adj[i].size(); j++) {
@@ -70,34 +68,42 @@ public:
 };
 
 int main() {
-    /*
-    *   0 A
-    *   1 B
-    *   2 C
-    *   3 D
-    *   4 E
-    *   5 F
-    *   6 G
-    *   7 H
-    */
-    Graph gp(8);
-    gp.addEdge(0,1,11);
-    gp.addEdge(0,2,6);
-    gp.addEdge(1,3,4);
-    gp.addEdge(1,4,3);
-    gp.addEdge(2,5,3);
-    gp.addEdge(2,4,10);
-    gp.addEdge(3,7,3);
-    gp.addEdge(4,7,5);
-    gp.addEdge(5,6,1);
-    gp.addEdge(6,4,4);
+    std::ifstream myfile("test.txt"); 
+    
+    if (myfile.is_open()) {
+        std::string line;
+        getline(myfile, line); 
+        int init = stoi(line.substr(5)); 
+        
+        getline(myfile, line); 
+        int goal = stoi(line.substr(5)); 
+        
+        std::vector<std::pair<int, int>> nodes; 
+        std::vector<std::vector<int>> abc_values; 
+        
+        while (getline(myfile, line)) { 
+            if (line.find(',') != std::string::npos) { 
+                int a, b, c;
+                sscanf(line.c_str(), "%d,%d,%d", &a, &b, &c); 
+                abc_values.push_back({a,b,c});
+            } else { 
+                int index, value;
+                sscanf(line.c_str(), "%d %d", &index, &value); 
+                nodes.push_back({index, value}); 
+            }
+        }
+        myfile.close(); 
 
-    //gp.printSelf();
-    //gp.dfs(0,7,0);
-    gp.ucs(0,7);
+        Graph gp(nodes.size());
 
+        for (int i = 0; i < abc_values.size(); i++) {
+            gp.addEdge(abc_values[i][0], abc_values[i][1], abc_values[i][2]);
+        }
+        gp.ucs(init,goal);
+        
+    } else {
+        std::cout << "No se puede abrir el archivo" << "\n"; 
+    }
+    
     return 0;
 }
-
-
-
